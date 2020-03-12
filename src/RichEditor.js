@@ -37,21 +37,12 @@ export default class RichTextEditor extends Component {
     };
     this.focusListeners = [];
   }
-
-  componentWillMount() {
-    // if (PlatformIOS) {
-    //     this.keyboardEventListeners = [
-    //         Keyboard.addListener('keyboardWillShow', this._onKeyboardWillShow),
-    //         Keyboard.addListener('keyboardWillHide', this._onKeyboardWillHide)
-    //     ];
-    // } else {
-    //     this.keyboardEventListeners = [
-    //         Keyboard.addListener('keyboardDidShow', this._onKeyboardWillShow),
-    //         Keyboard.addListener('keyboardDidHide', this._onKeyboardWillHide)
-    //     ];
-    // }
+  componentDidMount() {
+    const { autoFocus } = this.props;
+    if (authFocus && !PlatformIOS) {
+      this.webviewBridge && this.webviewBridge.requestFocus();
+    }
   }
-
   componentWillUnmount() {
     this.intervalHeight && clearInterval(this.intervalHeight);
     // this.keyboardEventListeners.forEach((eventListener) => eventListener.remove());
@@ -129,11 +120,22 @@ export default class RichTextEditor extends Component {
   };
 
   renderWebView = () => {
-    const { textColor, backgroundColor } = this.props;
+    const { textColor, backgroundColor, autoFocus } = this.props;
+
+    const INJECTED_JAVASCRIPT = `(function() {
+      var inputId = 'text-editor';
+      var searchInputElement = window.document.getElementById(inputId);
+  
+      if (searchInputElement) {
+        searchInputElement.focus();
+      }
+  })();`;
+
     return (
       <WebView
+        injectedJavaScript={autoFocus && INJECTED_JAVASCRIPT}
         useWebKit={true}
-        scrollEnabled={false}
+        scrollEnabled={true}
         {...this.props}
         hideKeyboardAccessoryView={true}
         keyboardDisplayRequiresUserAction={false}
@@ -165,7 +167,7 @@ export default class RichTextEditor extends Component {
         <View
           style={[
             this.props.style,
-            { height: height || Dimensions.get("window").height * 0.7 }
+            { height: height || Dimensions.get("window").height * 0.5 }
           ]}
         >
           {this.renderWebView()}

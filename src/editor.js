@@ -5,14 +5,15 @@ const getHTML = (backgroundColor = "#FFF", textColor = "#000033") => {
     <html>
     <head>
         <meta name="viewport" content="user-scalable=1.0,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0">
+        <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">    
         <style>
             * {outline: 0px solid transparent;-webkit-tap-highlight-color: rgba(0,0,0,0);-webkit-touch-callout: none;}
-            html, body { margin: 0; padding: 0;font-family: Arial, Helvetica, sans-serif; font-size:1em;}
+            html, body { margin: 0; padding: 0;font-family: 'Open Sans', sans-serif; font-size:1em;}
             body { overflow-y: hidden; -webkit-overflow-scrolling: touch;height: 100%;background-color: ${backgroundColor};}
             img {max-width: 98%;margin-left:auto;margin-right:auto;display: block;}
-            .content {  font-family: Arial, Helvetica, sans-serif;color: ${textColor}; width: 100%;height: 100%;-webkit-overflow-scrolling: touch;padding-left: 0;padding-right: 0;}
+            .content {  font-family: 'Open Sans', sans-serif;color: ${textColor}; width: 100%;height: 100%;-webkit-overflow-scrolling: touch;padding-left: 0;padding-right: 0;}
             .pell { height: 100%;}
-            .pell-content { outline: 0; overflow-y: auto;padding: 10px;height: 100%;}
+            .pell-content { outline: 0; overflow-y: scroll;padding: 10px;height: 100%;}
             table {width: 100% !important;}
             table td {width: inherit;}
             table span { font-size: 12px !important; }
@@ -179,6 +180,7 @@ const getHTML = (backgroundColor = "#FFF", textColor = "#000033") => {
                 content.autocorrect = 'off';
                 content.autocomplete = 'off';
                 content.className = "pell-content";
+                content.id = "text-editor";
                 content.oninput = function (_ref) {
                     var firstChild = _ref.target.firstChild;
     
