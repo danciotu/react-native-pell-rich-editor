@@ -8,7 +8,7 @@ import {
   StyleSheet,
   View
 } from "react-native";
-import { HTML } from "./editor";
+import { getHTML } from "./editor";
 
 const PlatformIOS = Platform.OS === "ios";
 
@@ -128,26 +128,29 @@ export default class RichTextEditor extends Component {
     }
   };
 
-  renderWebView = () => (
-    <WebView
-      useWebKit={true}
-      scrollEnabled={false}
-      {...this.props}
-      hideKeyboardAccessoryView={true}
-      keyboardDisplayRequiresUserAction={false}
-      ref={r => {
-        this.webviewBridge = r;
-      }}
-      onMessage={this.onMessage}
-      originWhitelist={["*"]}
-      dataDetectorTypes={"none"}
-      domStorageEnabled={false}
-      bounces={false}
-      javaScriptEnabled={true}
-      source={{ html: HTML }}
-      onLoad={() => this.init()}
-    />
-  );
+  renderWebView = () => {
+    const { textColor, backgroundColor } = this.props;
+    return (
+      <WebView
+        useWebKit={true}
+        scrollEnabled={false}
+        {...this.props}
+        hideKeyboardAccessoryView={true}
+        keyboardDisplayRequiresUserAction={false}
+        ref={r => {
+          this.webviewBridge = r;
+        }}
+        onMessage={this.onMessage}
+        originWhitelist={["*"]}
+        dataDetectorTypes={"none"}
+        domStorageEnabled={false}
+        bounces={false}
+        javaScriptEnabled={true}
+        source={{ html: getHTML(backgroundColor, textColor) }}
+        onLoad={() => this.init()}
+      />
+    );
+  };
 
   render() {
     let { height } = this.state;
