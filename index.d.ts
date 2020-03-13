@@ -1,10 +1,10 @@
 import { WebViewProps } from "react-native-webview";
-import { StyleProp, ViewStyle } from "react-native";
-import { actions } from "./src/const";
+import { StyleProp, ViewStyle, ImageSourcePropType } from "react-native";
+import * as React from "react";
 
 declare module "react-native-pell-rich-editor" {
   /** The RichTextEditor accepts all props from Webview */
-  declare interface RichEditorProps extends WebViewProps {
+  export interface RichEditorProps extends WebViewProps {
     /**
      * Used for placement of editor
      */
@@ -43,9 +43,9 @@ declare module "react-native-pell-rich-editor" {
     editorInitializedCallback?: () => void;
   }
 
-  declare type SelectionChangeListener = (items: string[]) => void;
+  export type SelectionChangeListener = (items: string[]) => void;
 
-  declare type DefaultActions = [
+  export type DefaultActions = [
     "image",
     "bold",
     "italic",
@@ -54,7 +54,7 @@ declare module "react-native-pell-rich-editor" {
     "link"
   ];
 
-  declare class RichEditor extends React.Component<RichEditorProps> {
+  export class RichEditor extends React.Component<RichEditorProps> {
     // Public API
 
     getContentHtml: () => Promise<string>;
@@ -78,7 +78,7 @@ declare module "react-native-pell-rich-editor" {
     init: () => void;
   }
 
-  declare interface RichToolbarProps {
+  export interface RichToolbarProps {
     /**
      * Function that returns a reference to the RichEditor instance
      */
@@ -122,11 +122,5 @@ declare module "react-native-pell-rich-editor" {
     actions?: Partial<DefaultActions> | string[];
   }
 
-  declare class RichToolbar extends React.Component<RichToolbarProps> {}
-
-  export = {
-    RichToolbar,
-    RichEditor,
-    actions
-  };
+  export class RichToolbar extends React.Component<RichToolbarProps> {}
 }
