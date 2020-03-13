@@ -39,7 +39,7 @@ export default class RichTextEditor extends Component {
   }
   componentDidMount() {
     const { autoFocus } = this.props;
-    if (authFocus && !PlatformIOS) {
+    if (autoFocus && !PlatformIOS) {
       this.webviewBridge && this.webviewBridge.requestFocus();
     }
   }
