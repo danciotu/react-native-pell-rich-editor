@@ -90,7 +90,6 @@ export default class RichTextEditor extends Component {
           }
           break;
         case messages.LOG:
-          console.log("FROM EDIT:", ...message.data);
           break;
         case messages.SELECTION_CHANGE: {
           const items = message.data;
@@ -167,7 +166,7 @@ export default class RichTextEditor extends Component {
         <View
           style={[
             this.props.style,
-            { height: height || Dimensions.get("window").height * 0.5 }
+            { height: height || Dimensions.get("window").height * 0.3 }
           ]}
         >
           {this.renderWebView()}
