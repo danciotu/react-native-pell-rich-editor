@@ -151,9 +151,26 @@ export default class RichToolbar extends Component {
     );
   }
 
+  _customRenderAction(action, selected) {
+    return (
+      <TouchableOpacity
+        key={action}
+        style={[
+          { flex: 1, justifyContent: "center" },
+          selected
+            ? this._getButtonSelectedStyle()
+            : this._getButtonUnselectedStyle()
+        ]}
+        onPress={() => this._onPress(action)}
+      >
+        {this.props.renderAction(action, selected)}
+      </TouchableOpacity>
+    );
+  }
+
   _renderAction(action, selected) {
     return this.props.renderAction
-      ? this.props.renderAction(action, selected)
+      ? this._customRenderAction(action, selected)
       : this._defaultRenderAction(action, selected);
   }
 
