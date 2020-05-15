@@ -17,6 +17,7 @@ const getHTML = (backgroundColor = "#FFF", textColor = "#000033") => {
               table {width: 100% !important;}
               table td {width: inherit;}
               table span { font-size: 12px !important; }
+              a {color: rgba(40, 102, 189, 1);}
           </style>
       </head>
       <body>
